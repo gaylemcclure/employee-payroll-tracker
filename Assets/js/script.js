@@ -19,48 +19,57 @@ const collectEmployees = function () {
     //Check if salary is a number, if not - update to 0
     if (isNaN(salaryInput)) {
       salaryInput = 0;
-    } 
-    
+    }
+
     //add the input data into employees array
     employees.push({
       firstName: firstNameInput,
       lastName: lastNameInput,
-      salary: salaryInput,
+      salary: `$${salaryInput}`,
     });
-  
+
     //verify if the user wants to add more, or exit
     if (addMore === false) {
       add = false;
     }
-  
-}
-
-  return employees
-
+  }
+  return employees;
 };
 
 // Display the average salary
 const displayAverageSalary = function (employeesArray) {
-  let total = 0
-  const arrayLength = employeesArray.length
+  let total = 0;
+  const arrayLength = employeesArray.length;
+
   //calculate the sum of salaries
-  console.log(typeof employeesArray[0].salary)
-  for (let i=0; i < arrayLength; i++) {
-    //the input salary is returned as a string - update to number for calculations
-    let employeeSalary = Number( employeesArray[i].salary)
-    total = total + employeeSalary
+  for (let i = 0; i < arrayLength; i++) {
+    //the input salary is returned as a string - update to number for calculations and remove $
+    let employeeSalary = Number(employeesArray[i].salary.substring(1));
+    total = total + employeeSalary;
   }
 
   //find the average salary
   const averageSalary = total / arrayLength;
 
-  //display the average
-  console.log(averageSalary)
+  //display this is there is only 1 employee entered
+  if (arrayLength === 1) {
+    console.log(`The average salary for our only employee is $${averageSalary}`)
+    //display this is multiple employees enteres
+  } else {
+    console.log(`The average salary for our ${arrayLength} employees is $${averageSalary}`)
+  }
 };
+
 
 // Select a random employee
 const getRandomEmployee = function (employeesArray) {
   // TODO: Select and display a random employee
+  const arrLength = employeesArray.length;
+  const randomNumber = Math.floor(Math.random() * arrLength);
+  const winner = employeesArray[randomNumber];
+
+  //Display the winner of the draw
+  console.log(`Congratulations to ${winner.firstName} ${winner.lastName}, our random drawing winner!`)
 };
 
 /*
@@ -111,17 +120,17 @@ const trackEmployeeData = function () {
 
   displayAverageSalary(employees);
 
-  console.log('==============================');
+  console.log("==============================");
 
-  // getRandomEmployee(employees);
+  getRandomEmployee(employees);
 
-  // employees.sort(function(a,b) {
-  //   if (a.lastName < b.lastName) {
-  //     return -1;
-  //   } else {
-  //     return 1;
-  //   }
-  // });
+  employees.sort(function(a,b) {
+    if (a.lastName < b.lastName) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
 
   displayEmployees(employees);
 };
