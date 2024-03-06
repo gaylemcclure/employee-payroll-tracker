@@ -13,8 +13,13 @@ const collectEmployees = function () {
   while (add === true) {
     const firstNameInput = prompt("Enter employee's first name");
     const lastNameInput = prompt("Enter employee's last name");
-    const salaryInput = prompt("Enter employee's salary");
+    let salaryInput = prompt("Enter employee's salary");
     addMore = confirm("Would you like to add more employees?");
+
+    //Check if salary is a number, if not - update to 0
+    if (isNaN(salaryInput)) {
+      salaryInput = 0;
+    } 
     
     //add the input data into employees array
     employees.push({
@@ -22,11 +27,13 @@ const collectEmployees = function () {
       lastName: lastNameInput,
       salary: salaryInput,
     });
+  
     //verify if the user wants to add more, or exit
     if (addMore === false) {
       add = false;
     }
-  }
+  
+}
 
   return employees
 
@@ -35,15 +42,20 @@ const collectEmployees = function () {
 // Display the average salary
 const displayAverageSalary = function (employeesArray) {
   let total = 0
+  const arrayLength = employeesArray.length
   //calculate the sum of salaries
-  for (let i=0; i< employeesArray.length; i++) {
-    total = total + employeesArray[i].salary
+  console.log(typeof employeesArray[0].salary)
+  for (let i=0; i < arrayLength; i++) {
+    //the input salary is returned as a string - update to number for calculations
+    let employeeSalary = Number( employeesArray[i].salary)
+    total = total + employeeSalary
   }
-  console.log(total)
 
   //find the average salary
+  const averageSalary = total / arrayLength;
 
   //display the average
+  console.log(averageSalary)
 };
 
 // Select a random employee
