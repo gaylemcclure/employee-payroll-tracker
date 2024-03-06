@@ -3,10 +3,8 @@ const addEmployeesBtn = document.querySelector("#add-employees-btn");
 
 // Collect employee data
 const collectEmployees = function () {
-  //Empty array to push data into
+  
   const employees = [];
-
-  //Bool to keep track of adding more employees
   let add = true;
 
   //while loop to repeat the prompts until the cancel button is clicked
@@ -44,32 +42,30 @@ const displayAverageSalary = function (employeesArray) {
   //calculate the sum of salaries
   for (let i = 0; i < arrayLength; i++) {
     //the input salary is returned as a string - update to number for calculations and remove $
-    let employeeSalary = Number(employeesArray[i].salary.substring(1));
+    const removeDollar = employeesArray[i].salary.substring(1);
+    let employeeSalary = Number(removeDollar);
     total = total + employeeSalary;
   }
 
   //find the average salary
   const averageSalary = total / arrayLength;
 
-  //display this is there is only 1 employee entered
+  //display the data if there is only 1 employee or multiple employees
   if (arrayLength === 1) {
-    console.log(`The average salary for our only employee is $${averageSalary}`)
-    //display this is multiple employees enteres
+    console.log(`The average salary for our only employee is $${averageSalary}`);
   } else {
-    console.log(`The average salary for our ${arrayLength} employees is $${averageSalary}`)
+    console.log(`The average salary for our ${arrayLength} employees is $${averageSalary}`);
   }
 };
 
-
 // Select a random employee
 const getRandomEmployee = function (employeesArray) {
-  // TODO: Select and display a random employee
   const arrLength = employeesArray.length;
   const randomNumber = Math.floor(Math.random() * arrLength);
   const winner = employeesArray[randomNumber];
 
   //Display the winner of the draw
-  console.log(`Congratulations to ${winner.firstName} ${winner.lastName}, our random drawing winner!`)
+  console.log(`Congratulations to ${winner.firstName} ${winner.lastName}, our random drawing winner!`);
 };
 
 /*
@@ -124,7 +120,7 @@ const trackEmployeeData = function () {
 
   getRandomEmployee(employees);
 
-  employees.sort(function(a,b) {
+  employees.sort(function (a, b) {
     if (a.lastName < b.lastName) {
       return -1;
     } else {
